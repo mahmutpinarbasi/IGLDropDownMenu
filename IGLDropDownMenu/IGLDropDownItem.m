@@ -16,12 +16,12 @@
 @property (nonatomic, strong) UIView *bgView;
 @property (nonatomic, strong) UILabel *textLabel;
 
+
 @end
 
 @implementation IGLDropDownItem
 
-- (id)initWithFrame:(CGRect)frame
-{
+- (id)initWithFrame:(CGRect)frame{
     self = [super initWithFrame:frame];
     if (self) {
         [self commonInit];
@@ -29,8 +29,7 @@
     return self;
 }
 
-- (instancetype)initWithCoder:(NSCoder *)aDecoder
-{
+- (instancetype)initWithCoder:(NSCoder *)aDecoder{
     self = [super initWithCoder:aDecoder];
     if (self) {
         [self commonInit];
@@ -38,12 +37,22 @@
     return self;
 }
 
-- (instancetype)initWithCustomView:(UIView *)customView
-{
+- (instancetype)initWithCustomView:(UIView *)customView{
     self = [super initWithFrame:CGRectZero];
     if (self) {
         [self addSubview:customView];
         customView.userInteractionEnabled = NO;
+        self.customView = customView;
+    }
+    return self;
+}
+
+- (instancetype)initWithCustomView:(UIView*)customView forMenu:(NSString *)matkitMenuType{
+    self = [super initWithFrame:CGRectZero];
+    if (self) {
+        [self addSubview:customView];
+        customView.userInteractionEnabled = NO;
+        _matkitMenuType = matkitMenuType;
         self.customView = customView;
     }
     return self;

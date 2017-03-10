@@ -24,4 +24,18 @@
 
 - (instancetype)initWithCustomView:(UIView*)customView;
 
+/**
+ *  Matkit Additions
+ *  Menu variables might changed according to user preference. Thus keep each `IGLDropDownItem` to decide 
+ *  what to do after user selection.
+ *
+ *  @menuType See MatkitMenuTypes for more details.
+ */
+- (instancetype)initWithCustomView:(UIView*)customView forMenu:(NSString *)matkitMenuType;
+
+/**
+ *  Matkit Additions
+ */
+@property (nonatomic, strong,readonly) NSString * matkitMenuType;
+
 @end
