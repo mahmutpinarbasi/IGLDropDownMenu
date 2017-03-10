@@ -448,6 +448,10 @@
             item.layer.transform = CATransform3DPerspect(rotate, CGPointMake(0, 0), 200);
             break;
         }
+        case IGLDropDownMenuTypeNormal: {
+            item.alpha = 0.0;
+            break;
+        }
         default: {
             // reset rotate
             item.transform = CGAffineTransformMakeRotation(0);
