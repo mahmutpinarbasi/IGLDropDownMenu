@@ -7,6 +7,7 @@
 //
 
 #import "IGLDropDownMenu.h"
+#import "IGLOverlayView.h"
 
 #ifdef NSFoundationVersionNumber_iOS_6_1
 #define IOS7_OR_GREATER (floor(NSFoundationVersionNumber) > NSFoundationVersionNumber_iOS_6_1)
@@ -21,6 +22,7 @@
 @property (nonatomic, assign) CGRect oldFrame;
 @property (nonatomic, assign) CGRect originalFrame;
 @property (nonatomic, copy) void (^selectedItemChangeBlock)(NSInteger selectedIndex);
+@property (nonatomic, strong) IGLOverlayView * overlay;
 
 @end
 
@@ -276,8 +278,10 @@
     }
     
     if (self.isExpanding) {
+        [self.overlay show];
         [self expandView];
     } else {
+        [self.overlay hide];
         [self foldView];
     }
     
@@ -650,6 +654,18 @@ CATransform3D CATransform3DMakePerspective(CGPoint center, float disZ)
 CATransform3D CATransform3DPerspect(CATransform3D t, CGPoint center, float disZ)
 {
     return CATransform3DConcat(t, CATransform3DMakePerspective(center, disZ));
+}
+
+
+#pragma mark - Properties
+- (IGLOverlayView *)overlay{
+    
+    if (_overlay == nil) {
+        _overlay = [[IGLOverlayView alloc] initWithFrame:self.superview.bounds menu:self];
+        [self.superview insertSubview:_overlay belowSubview:self];
+    }
+    
+    return _overlay;
 }
 
 @end
