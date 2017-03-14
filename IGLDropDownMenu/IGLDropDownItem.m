@@ -69,13 +69,17 @@
 - (void)setFrame:(CGRect)frame
 {
     [super setFrame:frame];
-    
-    if (self.customView) {
-        [self.customView setFrame:self.bounds];
-    } else {
+
+    if (self.customView == nil) {
         [self.bgView setFrame:self.bounds];
         [self updateLayout];
     }
+//    if (self.customView) {
+//        [self.customView setFrame:self.bounds];
+//    } else {
+//        [self.bgView setFrame:self.bounds];
+//        [self updateLayout];
+//    }
     
 }
 
