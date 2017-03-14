@@ -9,38 +9,37 @@
 #import "IGLDemoViewController.h"
 #import "IGLDemoCustomView.h"
 #import "IGLDropDownMenu.h"
+#import "LcmpIGLDropDownMenu.h"
 
 @interface IGLDemoViewController () <IGLDropDownMenuDelegate>
 
-@property (nonatomic, strong) IGLDropDownMenu *dropDownMenu;
+@property (nonatomic, strong) LcmpIGLDropDownMenu *dropDownMenu;
 @property (nonatomic, strong) UILabel *textLabel;
 @property (nonatomic, copy) NSArray *dataArray;
 @property (nonatomic, strong) UISegmentedControl *segmentControl;
 @property (nonatomic, assign) IGLDropDownMenuDirection direction;
 
-@property (nonatomic, strong) IGLDropDownMenu *defaultDropDownMenu;
+@property (nonatomic, strong) LcmpIGLDropDownMenu *defaultDropDownMenu;
 @property (nonatomic, strong) IGLDropDownMenu *customeViewDropDownMenu;
-
 @end
 
 @implementation IGLDemoViewController
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil{
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        // Custom initialization
         self.view.backgroundColor = [UIColor colorWithRed:0.89 green:0.89 blue:0.89 alpha:1.0];
         self.direction = IGLDropDownMenuDirectionDown;
     }
     return self;
 }
 
-- (void)viewDidLoad
-{
+- (void)viewDidLoad{
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
-    
+    [self prepareViewComponents];
+}
+
+- (void)prepareViewComponents{
     UISegmentedControl *segmentedControl = [[UISegmentedControl alloc] initWithItems:@[@"D1",@"D2",@"D3",@"D4",@"D5",@"D6",@"D7",@"D8",@"D9"]];
     [segmentedControl setFrame:CGRectMake(10, 25, 300, 30)];
     [segmentedControl addTarget:self action:@selector(segmentChanged:) forControlEvents:UIControlEventValueChanged];
@@ -67,11 +66,10 @@
                        @{@"image":[UIImage imageNamed:@"windy.png"],@"title":@"Windy"}];
     
     [self initDefaultMenu];
-    [self initCustomViewMenu];
-    
+//    [self initCustomViewMenu];
+//    [self initLcmpMenu];
     self.customeViewDropDownMenu.hidden = YES;
     self.dropDownMenu = self.defaultDropDownMenu;
-    
     [self setUpParamsForDemo1];
     
     [self.dropDownMenu reloadView];
@@ -83,32 +81,31 @@
 
 }
 
-- (void)initDefaultMenu
-{
-    NSMutableArray *dropdownItems = [[NSMutableArray alloc] init];
-    for (int i = 0; i < self.dataArray.count; i++) {
-        NSDictionary *dict = self.dataArray[i];
-        
-        IGLDropDownItem *item = [[IGLDropDownItem alloc] init];
-        [item setIconImage:dict[@"image"]];
-        [item setText:dict[@"title"]];
-        [dropdownItems addObject:item];
-    }
+- (void)initDefaultMenu{
+    [self initLcmpMenu];
+//    NSMutableArray *dropdownItems = [[NSMutableArray alloc] init];
+//    for (int i = 0; i < self.dataArray.count; i++) {
+//        NSDictionary *dict = self.dataArray[i];
+//        
+//        IGLDropDownItem *item = [[IGLDropDownItem alloc] init];
+//        [item setIconImage:dict[@"image"]];
+//        [item setText:dict[@"title"]];
+//        [dropdownItems addObject:item];
+//    }
+//    
+//    self.defaultDropDownMenu = [[IGLDropDownMenu alloc] init];
+//    self.defaultDropDownMenu.menuText = @"Choose Weather";
+//    self.defaultDropDownMenu.dropDownItems = dropdownItems;
+//    self.defaultDropDownMenu.paddingLeft = 15;
+//    [self.defaultDropDownMenu setFrame:CGRectMake(60, 140, 200, 45)];
+//    self.defaultDropDownMenu.delegate = self;
     
-    self.defaultDropDownMenu = [[IGLDropDownMenu alloc] init];
-    self.defaultDropDownMenu.menuText = @"Choose Weather";
-    self.defaultDropDownMenu.dropDownItems = dropdownItems;
-    self.defaultDropDownMenu.paddingLeft = 15;
-    [self.defaultDropDownMenu setFrame:CGRectMake(60, 140, 200, 45)];
-    self.defaultDropDownMenu.delegate = self;
-    
-    [self.view addSubview:self.defaultDropDownMenu];
+//    [self.view addSubview:self.defaultDropDownMenu];
     
     [self.defaultDropDownMenu reloadView];
 }
 
-- (void)initCustomViewMenu
-{
+- (void)initCustomViewMenu{
     NSMutableArray *dropdownItems = [[NSMutableArray alloc] init];
     for (int i = 0; i < self.dataArray.count; i++) {
         NSDictionary *dict = self.dataArray[i];
@@ -144,19 +141,19 @@
     }];
 }
 
-- (void)segmentChanged:(UISegmentedControl*)segment
-{
-    NSInteger index = segment.selectedSegmentIndex;
-    [self setUpParameWithSegmentControlIndex:index];
-    [self.dropDownMenu reloadView];
-    self.textLabel.text = @"No Selected.";
+- (void)initLcmpMenu{
+    
+    _defaultDropDownMenu = [[LcmpIGLDropDownMenu alloc] initWithDelegate:self];
+    [self.defaultDropDownMenu setFrame:CGRectMake(self.view.center.x, 140, 56.0, 56.0)];
+    [self.view addSubview:_defaultDropDownMenu];
+    self.defaultDropDownMenu.center = self.view.center;
+    [self.defaultDropDownMenu reloadView];
 }
 
-- (void)setUpParameWithSegmentControlIndex:(NSInteger)index
-{
+- (void)setUpParameWithSegmentControlIndex:(NSInteger)index{
     [self.dropDownMenu resetParams];
     self.dropDownMenu.direction = self.direction;
-    
+//    self.dropDownMenu.offsetX = -self.dropDownMenu.itemSize.width;
     CGFloat x = CGRectGetMinX(self.dropDownMenu.frame);
     CGFloat width = CGRectGetWidth(self.dropDownMenu.frame);
     CGFloat height = CGRectGetHeight(self.dropDownMenu.frame);
@@ -211,8 +208,41 @@
 }
 
 
-- (void)segment2Changed:(UISegmentedControl*)segment
-{
+
+
+
+
+
+
+#pragma mark - IGLDropDownMenuDelegate
+
+- (void)dropDownMenu:(IGLDropDownMenu *)dropDownMenu selectedItemAtIndex:(NSInteger)index{
+}
+
+- (void)dropDownMenu:(IGLDropDownMenu *)dropDownMenu expandingChanged:(BOOL)isExpanding{
+    NSLog(@"Expending changed to: %@", isExpanding? @"expand" : @"fold");
+    
+}
+
+- (void)dropDownMenu:(IGLDropDownMenu *)dropDownMenu expandingChangedWithAnimationCompledted:(BOOL)isExpanding{
+    NSLog(@"IGLDropDownMenu size: %@", NSStringFromCGSize(dropDownMenu.bounds.size));
+}
+
+
+
+
+
+#pragma mark - DEMO
+
+#pragma mark - Segment
+- (void)segmentChanged:(UISegmentedControl*)segment{
+    NSInteger index = segment.selectedSegmentIndex;
+    [self setUpParameWithSegmentControlIndex:index];
+    [self.dropDownMenu reloadView];
+    self.textLabel.text = @"No Selected.";
+}
+
+- (void)segment2Changed:(UISegmentedControl*)segment{
     NSInteger index = segment.selectedSegmentIndex;
     if (index == 0) {
         self.customeViewDropDownMenu.hidden = YES;
@@ -225,11 +255,10 @@
     [self setUpParameWithSegmentControlIndex:self.segmentControl.selectedSegmentIndex];
     self.textLabel.text = @"No Selected.";
     [self.dropDownMenu reloadView];
-
+    
 }
 
-- (void)segment3Changed:(UISegmentedControl*)segment
-{
+- (void)segment3Changed:(UISegmentedControl*)segment{
     NSInteger index = segment.selectedSegmentIndex;
     self.direction = index == 1 ? IGLDropDownMenuDirectionUp : IGLDropDownMenuDirectionDown;
     [self setUpParameWithSegmentControlIndex:self.segmentControl.selectedSegmentIndex];
@@ -237,107 +266,66 @@
     [self.dropDownMenu reloadView];
 }
 
-- (void)setUpParamsForDemo1
-{
-    self.dropDownMenu.type = IGLDropDownMenuTypeStack;
+#pragma mark - Layout
+- (void)setUpParamsForDemo1{
+    self.dropDownMenu.type = IGLDropDownMenuTypeNormal;
     self.dropDownMenu.gutterY = 5;
 }
 
-- (void)setUpParamsForDemo2
-{
+- (void)setUpParamsForDemo2{
     self.dropDownMenu.type = IGLDropDownMenuTypeStack;
     self.dropDownMenu.gutterY = 5;
     self.dropDownMenu.itemAnimationDelay = 0.1;
     self.dropDownMenu.rotate = IGLDropDownMenuRotateRandom;
 }
 
-- (void)setUpParamsForDemo3
-{
+- (void)setUpParamsForDemo3{
     self.dropDownMenu.type = IGLDropDownMenuTypeStack;
     self.dropDownMenu.gutterY = 5;
     self.dropDownMenu.itemAnimationDelay = 0.04;
     self.dropDownMenu.rotate = IGLDropDownMenuRotateLeft;
 }
 
-- (void)setUpParamsForDemo4
-{
+- (void)setUpParamsForDemo4{
     self.dropDownMenu.type = IGLDropDownMenuTypeStack;
     self.dropDownMenu.flipWhenToggleView = YES;
 }
 
-- (void)setUpParamsForDemo5
-{
+- (void)setUpParamsForDemo5{
     self.dropDownMenu.gutterY = 5;
     self.dropDownMenu.type = IGLDropDownMenuTypeSlidingInBoth;
 }
 
-- (void)setUpParamsForDemo6
-{
+- (void)setUpParamsForDemo6{
     self.dropDownMenu.gutterY = 5;
     self.dropDownMenu.type = IGLDropDownMenuTypeSlidingInBoth;
     self.dropDownMenu.itemAnimationDelay = 0.1;
 }
 
-- (void)setUpParamsForDemo7
-{
+- (void)setUpParamsForDemo7{
     self.dropDownMenu.gutterY = 0;
     self.dropDownMenu.type = IGLDropDownMenuTypeFlipVertical;
     self.dropDownMenu.animationDuration = 0.2;
 }
 
-- (void)setUpParamsForDemo8
-{
+- (void)setUpParamsForDemo8{
     self.dropDownMenu.gutterY = 0;
     self.dropDownMenu.type = IGLDropDownMenuTypeFlipFromLeft;
     self.dropDownMenu.animationDuration = 0.4;
     self.dropDownMenu.itemAnimationDelay = 0.1;
 }
 
-- (void)setUpParamsForDemo9
-{
+- (void)setUpParamsForDemo9{
     self.dropDownMenu.gutterY = 0;
     self.dropDownMenu.type = IGLDropDownMenuTypeFlipFromRight;
     self.dropDownMenu.animationDuration = 0.4;
     self.dropDownMenu.itemAnimationDelay = 0.1;
 }
 
-#pragma mark - IGLDropDownMenuDelegate
 
-- (void)dropDownMenu:(IGLDropDownMenu *)dropDownMenu selectedItemAtIndex:(NSInteger)index
-{
-    if (self.dropDownMenu == self.defaultDropDownMenu) {
-        IGLDropDownItem *item = dropDownMenu.dropDownItems[index];
-        self.textLabel.text = [NSString stringWithFormat:@"Selected: %@", item.text];
-    }
-    
-}
-
-- (void)dropDownMenu:(IGLDropDownMenu *)dropDownMenu expandingChanged:(BOOL)isExpanding
-{
-    NSLog(@"Expending changed to: %@", isExpanding? @"expand" : @"fold");
-
-}
-
-- (void)dropDownMenu:(IGLDropDownMenu *)dropDownMenu expandingChangedWithAnimationCompledted:(BOOL)isExpanding
-{
-    NSLog(@"IGLDropDownMenu size: %@", NSStringFromCGSize(dropDownMenu.bounds.size));
-}
-
-- (void)didReceiveMemoryWarning
-{
+- (void)didReceiveMemoryWarning{
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

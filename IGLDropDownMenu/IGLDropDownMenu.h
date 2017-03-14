@@ -71,6 +71,7 @@ typedef NS_ENUM(NSUInteger, IGLDropDownMenuDirection) {
 @property (nonatomic, weak) id<IGLDropDownMenuDelegate> delegate;
 
 - (instancetype)initWithMenuButtonCustomView:(UIView*)customView;
+- (instancetype)initWithMenuButtonCustomView:(UIView *)customView itemSize:(CGSize)itemSize;
 
 - (void)reloadView;
 - (void)resetParams;

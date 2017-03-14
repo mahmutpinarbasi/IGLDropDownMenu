@@ -70,16 +70,12 @@
 {
     [super setFrame:frame];
 
-    if (self.customView == nil) {
+    if (self.customView) {
+        [self.customView setFrame:self.customView.bounds];
+    } else {
         [self.bgView setFrame:self.bounds];
         [self updateLayout];
     }
-//    if (self.customView) {
-//        [self.customView setFrame:self.bounds];
-//    } else {
-//        [self.bgView setFrame:self.bounds];
-//        [self updateLayout];
-//    }
     
 }
 

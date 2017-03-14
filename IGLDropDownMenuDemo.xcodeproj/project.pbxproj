@@ -24,6 +24,8 @@
 		3A2935B319B2094A006BAAA7 /* IGLDemoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A2935B219B2094A006BAAA7 /* IGLDemoViewController.m */; };
 		3A31D95F1C68762400D29E7F /* IGLDemoCustomView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A31D95E1C68762400D29E7F /* IGLDemoCustomView.m */; };
 		7539E49F1E77EE41001E23DC /* IGLOverlayView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7539E49E1E77EE41001E23DC /* IGLOverlayView.m */; };
+		75FC5F2A1E77F9E5007EB1EC /* LcmpIGLDropDownItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 75FC5F271E77F9E5007EB1EC /* LcmpIGLDropDownItem.m */; };
+		75FC5F2B1E77F9E5007EB1EC /* LcmpIGLDropDownMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = 75FC5F291E77F9E5007EB1EC /* LcmpIGLDropDownMenu.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -63,6 +65,10 @@
 		3A31D95E1C68762400D29E7F /* IGLDemoCustomView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IGLDemoCustomView.m; sourceTree = "<group>"; };
 		7539E49D1E77EE41001E23DC /* IGLOverlayView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IGLOverlayView.h; sourceTree = "<group>"; };
 		7539E49E1E77EE41001E23DC /* IGLOverlayView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IGLOverlayView.m; sourceTree = "<group>"; };
+		75FC5F261E77F9E5007EB1EC /* LcmpIGLDropDownItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LcmpIGLDropDownItem.h; sourceTree = "<group>"; };
+		75FC5F271E77F9E5007EB1EC /* LcmpIGLDropDownItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LcmpIGLDropDownItem.m; sourceTree = "<group>"; };
+		75FC5F281E77F9E5007EB1EC /* LcmpIGLDropDownMenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LcmpIGLDropDownMenu.h; sourceTree = "<group>"; };
+		75FC5F291E77F9E5007EB1EC /* LcmpIGLDropDownMenu.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LcmpIGLDropDownMenu.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -135,6 +141,10 @@
 		3A29358119B20673006BAAA7 /* IGLDropDownMenuDemo */ = {
 			isa = PBXGroup;
 			children = (
+				75FC5F261E77F9E5007EB1EC /* LcmpIGLDropDownItem.h */,
+				75FC5F271E77F9E5007EB1EC /* LcmpIGLDropDownItem.m */,
+				75FC5F281E77F9E5007EB1EC /* LcmpIGLDropDownMenu.h */,
+				75FC5F291E77F9E5007EB1EC /* LcmpIGLDropDownMenu.m */,
 				3A29358A19B20673006BAAA7 /* IGLAppDelegate.h */,
 				3A29358B19B20673006BAAA7 /* IGLAppDelegate.m */,
 				3A2935B119B2094A006BAAA7 /* IGLDemoViewController.h */,
@@ -277,10 +287,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				75FC5F2B1E77F9E5007EB1EC /* LcmpIGLDropDownMenu.m in Sources */,
 				3A12B43419B20C9600CC6235 /* IGLDropDownItem.m in Sources */,
 				3A29358819B20673006BAAA7 /* main.m in Sources */,
 				3A29358C19B20673006BAAA7 /* IGLAppDelegate.m in Sources */,
 				3A12B43519B20C9600CC6235 /* IGLDropDownMenu.m in Sources */,
+				75FC5F2A1E77F9E5007EB1EC /* LcmpIGLDropDownItem.m in Sources */,
 				3A2935B319B2094A006BAAA7 /* IGLDemoViewController.m in Sources */,
 				3A31D95F1C68762400D29E7F /* IGLDemoCustomView.m in Sources */,
 				7539E49F1E77EE41001E23DC /* IGLOverlayView.m in Sources */,

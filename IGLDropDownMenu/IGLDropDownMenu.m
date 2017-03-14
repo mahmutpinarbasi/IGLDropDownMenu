@@ -46,6 +46,18 @@
     return self;
 }
 
+- (instancetype)initWithMenuButtonCustomView:(UIView *)customView itemSize:(CGSize)itemSize{
+    self = [super initWithFrame:CGRectZero];
+    if (self) {
+        [self resetParams];
+        self.menuButton = [[IGLDropDownItem alloc] initWithCustomView:customView];
+        self.menuButtonStatic = YES;
+        _itemSize = itemSize;
+    }
+    return self;
+
+}
+
 - (instancetype)initWithMenuButtonCustomView:(UIView *)customView
 {
     self = [super initWithFrame:CGRectZero];
@@ -53,6 +65,7 @@
         [self resetParams];
         self.menuButton = [[IGLDropDownItem alloc] initWithCustomView:customView];
         self.menuButtonStatic = YES;
+        _itemSize = CGSizeZero;
     }
     return self;
 }
@@ -112,7 +125,7 @@
     self.type = IGLDropDownMenuTypeNormal;
     self.slidingInOffset = -1;
     self.gutterY = 0;
-    self.alphaOnFold = -1;
+    self.alphaOnFold = 0.0;
     self.flipWhenToggleView = NO;
     _expanding = NO;
     self.useSpringAnimation = YES;
@@ -128,7 +141,9 @@
     } else {
         self.oldFrame = self.frame;
     }
-    self.itemSize = self.frame.size;
+    if (CGSizeEqualToSize(CGSizeZero, self.itemSize)) {
+        self.itemSize = self.frame.size;
+    }
     // clear all subviews
     for (UIView *view in [self subviews]) {
         [view removeFromSuperview];
@@ -493,6 +508,7 @@
     switch (self.type) {
         case IGLDropDownMenuTypeNormal:
             // just take the default value
+            x = -width + CGRectGetMidX(self.menuButton.customView.frame);
             break;
         case IGLDropDownMenuTypeStack:
             x += count * 2;
@@ -543,6 +559,10 @@
     CGFloat y = (index + 1) * (self.itemSize.height + self.gutterY);
     CGFloat width = self.itemSize.width;
     CGFloat height = self.itemSize.height;
+    
+    if (self.type == IGLDropDownMenuTypeNormal) {
+        x = -self.itemSize.width + CGRectGetMidX(self.menuButton.customView.frame);
+    }
     
     switch (self.rotate) {
         case IGLDropDownMenuRotateNone:
