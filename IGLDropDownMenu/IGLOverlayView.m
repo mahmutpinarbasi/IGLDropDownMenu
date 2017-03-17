@@ -35,7 +35,7 @@
 #pragma mark - Public
 - (void)show{
     [UIView animateWithDuration:0.2 animations:^{
-        self.alpha = 0.6;
+        self.alpha = 0.7;
     }];
 }
 
@@ -56,6 +56,7 @@
     UITapGestureRecognizer * tapGesture = [[UITapGestureRecognizer alloc]
                                            initWithTarget:self
                                            action:@selector(tapGestureRecognized)];
+
     [self addGestureRecognizer:tapGesture];
 }
 

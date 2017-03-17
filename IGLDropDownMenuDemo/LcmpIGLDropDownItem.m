@@ -13,7 +13,6 @@
 @property (nonatomic, strong) NSString *title;
 @property (nonatomic, strong) UILabel * lblTitle;
 @property (nonatomic, strong) UIColor * primaryColor;
-@property (nonatomic, strong) UIView * circularView;
 
 @end
 
@@ -43,21 +42,14 @@
 }
 
 - (void)initView{
-    
 
-    self.circularView = [[UIView alloc] initWithFrame:CGRectZero];
-    self.circularView.backgroundColor = _primaryColor;
-    [self addSubview:self.circularView];
-    [self addCircularViewConstraints];
-    
-    
     self.lblTitle = [[UILabel alloc] initWithFrame:CGRectZero];
     self.lblTitle.attributedText = [self attrStr];
     self.lblTitle.backgroundColor = [UIColor whiteColor];
     [self addSubview:self.lblTitle];
     
     [self addLabelConstraints];
-    self.backgroundColor = [UIColor purpleColor];
+    self.backgroundColor = [UIColor clearColor];
     self.alpha = 1.0;
     
 }
@@ -67,7 +59,7 @@
 
     NSMutableParagraphStyle * style = [[NSParagraphStyle defaultParagraphStyle] mutableCopy];
     style.alignment = NSTextAlignmentCenter;
-    NSDictionary * attributes = @{NSFontAttributeName:[UIFont systemFontOfSize:14.0],
+    NSDictionary * attributes = @{NSFontAttributeName:[UIFont systemFontOfSize:18.0],
                                   NSForegroundColorAttributeName:[UIColor darkGrayColor],
                                   NSParagraphStyleAttributeName:style};
     
@@ -92,13 +84,13 @@
 
     
     self.lblTitle.translatesAutoresizingMaskIntoConstraints = NO;
-    NSLayoutConstraint * trailing = [NSLayoutConstraint constraintWithItem:self.circularView
-                                                                 attribute:NSLayoutAttributeLeading
+    NSLayoutConstraint * trailing = [NSLayoutConstraint constraintWithItem:self
+                                                                 attribute:NSLayoutAttributeTrailing
                                                                  relatedBy:NSLayoutRelationEqual
                                                                     toItem:self.lblTitle
                                                                  attribute:NSLayoutAttributeTrailing
                                                                 multiplier:1.0
-                                                                  constant:margin];
+                                                                  constant:0.0];
     
     NSLayoutConstraint * center = [NSLayoutConstraint constraintWithItem:self.lblTitle
                                                                attribute:NSLayoutAttributeCenterY
@@ -133,53 +125,6 @@
     
     
     
-}
-
-- (void)addCircularViewConstraints{
-    
-
-    CGFloat margin = 12.0;
-    CGFloat circularHeight =  CGRectGetHeight(self.frame)-(margin*2);
-
-    self.circularView.translatesAutoresizingMaskIntoConstraints = false;
-
-    NSLayoutConstraint * height = [NSLayoutConstraint constraintWithItem:self.circularView
-                                                               attribute:NSLayoutAttributeHeight
-                                                               relatedBy:NSLayoutRelationEqual
-                                                                  toItem:nil
-                                                               attribute:NSLayoutAttributeNotAnAttribute
-                                                              multiplier:1.0
-                                                                constant:circularHeight];
-    
-    NSLayoutConstraint * width = [NSLayoutConstraint constraintWithItem:self.circularView
-                                                               attribute:NSLayoutAttributeWidth
-                                                               relatedBy:NSLayoutRelationEqual
-                                                                  toItem:nil
-                                                               attribute:NSLayoutAttributeNotAnAttribute
-                                                              multiplier:1.0
-                                                                constant:circularHeight];
-
-    
-    NSLayoutConstraint * trailing = [NSLayoutConstraint constraintWithItem:self
-                                                              attribute:NSLayoutAttributeTrailing
-                                                              relatedBy:NSLayoutRelationEqual
-                                                                 toItem:self.circularView
-                                                              attribute:NSLayoutAttributeTrailing
-                                                             multiplier:1.0
-                                                               constant:0];
-    
-    NSLayoutConstraint * bottom = [NSLayoutConstraint constraintWithItem:self
-                                                                 attribute:NSLayoutAttributeBottom
-                                                                 relatedBy:NSLayoutRelationEqual
-                                                                    toItem:self.circularView
-                                                                 attribute:NSLayoutAttributeBottom
-                                                                multiplier:1.0
-                                                                  constant:margin];
-    
-    [self addConstraints:@[height,width,trailing,bottom]];
-
-    
-    self.circularView.layer.cornerRadius = circularHeight/2;
 }
 
 

@@ -217,16 +217,17 @@
 #pragma mark - IGLDropDownMenuDelegate
 
 - (void)dropDownMenu:(IGLDropDownMenu *)dropDownMenu selectedItemAtIndex:(NSInteger)index{
+    NSLog(@"tapped index...%ld",index);
 }
 
-- (void)dropDownMenu:(IGLDropDownMenu *)dropDownMenu expandingChanged:(BOOL)isExpanding{
-    NSLog(@"Expending changed to: %@", isExpanding? @"expand" : @"fold");
-    
-}
-
-- (void)dropDownMenu:(IGLDropDownMenu *)dropDownMenu expandingChangedWithAnimationCompledted:(BOOL)isExpanding{
-    NSLog(@"IGLDropDownMenu size: %@", NSStringFromCGSize(dropDownMenu.bounds.size));
-}
+//- (void)dropDownMenu:(IGLDropDownMenu *)dropDownMenu expandingChanged:(BOOL)isExpanding{
+//    NSLog(@"Expending changed to: %@", isExpanding? @"expand" : @"fold");
+//    
+//}
+//
+//- (void)dropDownMenu:(IGLDropDownMenu *)dropDownMenu expandingChangedWithAnimationCompledted:(BOOL)isExpanding{
+//    NSLog(@"IGLDropDownMenu size: %@", NSStringFromCGSize(dropDownMenu.bounds.size));
+//}
 
 
 

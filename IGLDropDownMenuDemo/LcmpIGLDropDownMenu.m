@@ -24,7 +24,7 @@ CGFloat const LcmpIpadIGLMenuButtonMargin = 8.0;
 
 - (instancetype)initWithDelegate:(id<IGLDropDownMenuDelegate>)delegate{
     
-    self = [super initWithMenuButtonCustomView:self.customBackgroundView itemSize:self.itemSize];
+    self = [super initWithMenuButtonCustomView:self.customBackgroundView];
     
     if (self) {
         [self resetParams];
@@ -47,15 +47,22 @@ CGFloat const LcmpIpadIGLMenuButtonMargin = 8.0;
 - (UIView *)customBackgroundView{
     
     if (_customBackgroundView == nil) {
-        _customBackgroundView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, LcmpIpadIGLMenuButtonWidth, LcmpIpadIGLMenuButtonHeight)];
-        _customBackgroundView.layer.cornerRadius = LcmpIpadIGLMenuButtonHeight/2;
-        _customBackgroundView.backgroundColor = [UIColor whiteColor];
-        _customBackgroundView.layer.shadowOpacity = 5.0;
-        _customBackgroundView.layer.shadowOffset = CGSizeZero;
+        _customBackgroundView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.itemSize.width, LcmpIpadIGLMenuButtonHeight)];
+        _customBackgroundView.backgroundColor = [UIColor clearColor];
+        
+        
+        UIView * circularView = [[UIView alloc] initWithFrame:CGRectMake(CGRectGetWidth(_customBackgroundView.frame)-LcmpIpadIGLMenuButtonWidth, 0, LcmpIpadIGLMenuButtonWidth, LcmpIpadIGLMenuButtonHeight)];
+        circularView.backgroundColor = [UIColor whiteColor];
+        circularView.layer.cornerRadius = LcmpIpadIGLMenuButtonHeight/2;
+        circularView.backgroundColor = [UIColor whiteColor];
+        circularView.layer.shadowOpacity = 5.0;
+        circularView.layer.shadowOffset = CGSizeZero;
+        [_customBackgroundView addSubview:circularView];
     }
     
     return _customBackgroundView;
 }
+
 
 - (CGSize)itemSize{
     return CGSizeMake(240.0-LcmpIpadIGLMenuButtonWidth, 56.0);

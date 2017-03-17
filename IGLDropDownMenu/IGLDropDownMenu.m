@@ -28,8 +28,7 @@
 
 @implementation IGLDropDownMenu
 
-- (instancetype)initWithFrame:(CGRect)frame
-{
+- (instancetype)initWithFrame:(CGRect)frame{
     self = [super initWithFrame:frame];
     if (self) {
         [self commonInit];
@@ -37,8 +36,7 @@
     return self;
 }
 
-- (instancetype)initWithCoder:(NSCoder *)aDecoder
-{
+- (instancetype)initWithCoder:(NSCoder *)aDecoder{
     self = [super initWithCoder:aDecoder];
     if (self) {
         [self commonInit];
@@ -46,26 +44,13 @@
     return self;
 }
 
-- (instancetype)initWithMenuButtonCustomView:(UIView *)customView itemSize:(CGSize)itemSize{
+
+- (instancetype)initWithMenuButtonCustomView:(UIView *)customView{
     self = [super initWithFrame:CGRectZero];
     if (self) {
         [self resetParams];
         self.menuButton = [[IGLDropDownItem alloc] initWithCustomView:customView];
         self.menuButtonStatic = YES;
-        _itemSize = itemSize;
-    }
-    return self;
-
-}
-
-- (instancetype)initWithMenuButtonCustomView:(UIView *)customView
-{
-    self = [super initWithFrame:CGRectZero];
-    if (self) {
-        [self resetParams];
-        self.menuButton = [[IGLDropDownItem alloc] initWithCustomView:customView];
-        self.menuButtonStatic = YES;
-        _itemSize = CGSizeZero;
     }
     return self;
 }
@@ -141,9 +126,8 @@
     } else {
         self.oldFrame = self.frame;
     }
-    if (CGSizeEqualToSize(CGSizeZero, self.itemSize)) {
-        self.itemSize = self.frame.size;
-    }
+    
+    self.itemSize = self.frame.size;
     // clear all subviews
     for (UIView *view in [self subviews]) {
         [view removeFromSuperview];
@@ -508,7 +492,7 @@
     switch (self.type) {
         case IGLDropDownMenuTypeNormal:
             // just take the default value
-            x = -width + CGRectGetMidX(self.menuButton.customView.frame);
+//            x = -width + CGRectGetMidX(self.menuButton.customView.frame);
             break;
         case IGLDropDownMenuTypeStack:
             x += count * 2;
@@ -560,9 +544,9 @@
     CGFloat width = self.itemSize.width;
     CGFloat height = self.itemSize.height;
     
-    if (self.type == IGLDropDownMenuTypeNormal) {
-        x = -self.itemSize.width + CGRectGetMidX(self.menuButton.customView.frame);
-    }
+//    if (self.type == IGLDropDownMenuTypeNormal) {
+//        x = -self.itemSize.width + CGRectGetMidX(self.menuButton.customView.frame);
+//    }
     
     switch (self.rotate) {
         case IGLDropDownMenuRotateNone:
@@ -687,5 +671,9 @@ CATransform3D CATransform3DPerspect(CATransform3D t, CGPoint center, float disZ)
     
     return _overlay;
 }
+
+
+
+
 
 @end

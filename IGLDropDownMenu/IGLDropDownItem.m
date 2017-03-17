@@ -71,7 +71,8 @@
     [super setFrame:frame];
 
     if (self.customView) {
-        [self.customView setFrame:self.customView.bounds];
+        [self.customView setFrame:self.bounds];
+//        [self.customView setFrame:self.customView.bounds];
     } else {
         [self.bgView setFrame:self.bounds];
         [self updateLayout];
