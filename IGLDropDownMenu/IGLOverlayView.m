@@ -34,15 +34,39 @@
 
 #pragma mark - Public
 - (void)show{
-    [UIView animateWithDuration:0.2 animations:^{
-        self.alpha = 0.7;
-    }];
+    self.userInteractionEnabled = NO;
+    self.menu.userInteractionEnabled = NO;
+    self.menu.menuButton.userInteractionEnabled = NO;
+    [UIView animateWithDuration:0.2
+                          delay:0
+                        options:UIViewAnimationOptionCurveEaseIn
+                     animations:^{
+                            self.alpha = 0.7;
+                     } completion:^(BOOL finished) {
+                         self.userInteractionEnabled = YES;
+                         self.menu.userInteractionEnabled = YES;
+                         self.menu.menuButton.userInteractionEnabled = YES;
+                     }];
 }
 
 - (void)hide{
-    [UIView animateWithDuration:0.2 animations:^{
-        self.alpha = 0.0;
-    }];
+    
+    self.userInteractionEnabled = NO;
+    self.menu.userInteractionEnabled = NO;
+    self.menu.menuButton.userInteractionEnabled = NO;
+    
+    [UIView animateWithDuration:0.2
+                          delay:0
+                        options:UIViewAnimationOptionCurveEaseIn
+                     animations:^{
+                         self.alpha = 0.0;
+                     } completion:^(BOOL finished) {
+                         self.userInteractionEnabled = YES;
+                         self.menu.userInteractionEnabled = YES;
+                         self.menu.menuButton.userInteractionEnabled = YES;
+                     }];
+    
+    
 }
 
 #pragma mark - Private
