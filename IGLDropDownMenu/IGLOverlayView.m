@@ -55,7 +55,7 @@
                           delay:0
                         options:UIViewAnimationOptionCurveEaseIn
                      animations:^{
-                            self.alpha = 0.7;
+                            self.alpha = 1.0;
                      } completion:^(BOOL finished) {
                          self.userInteractionEnabled = YES;
                          self.menu.userInteractionEnabled = YES;
