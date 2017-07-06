@@ -23,6 +23,7 @@
 @property (nonatomic, assign) CGRect originalFrame;
 @property (nonatomic, copy) void (^selectedItemChangeBlock)(NSInteger selectedIndex);
 @property (nonatomic, strong) IGLOverlayView * overlay;
+@property (nonatomic, strong) UIView * customOverlayView;
 
 @end
 
@@ -45,12 +46,14 @@
 }
 
 
-- (instancetype)initWithMenuButtonCustomView:(UIView *)customView{
+- (instancetype)initWithMenuButtonCustomView:(UIView*)customView overlayView:(UIView *)overlayView{
     self = [super initWithFrame:CGRectZero];
     if (self) {
         [self resetParams];
+        _customOverlayView = overlayView;
         self.menuButton = [[IGLDropDownItem alloc] initWithCustomView:customView];
         self.menuButtonStatic = YES;
+
     }
     return self;
 }
@@ -665,8 +668,15 @@ CATransform3D CATransform3DPerspect(CATransform3D t, CGPoint center, float disZ)
 - (IGLOverlayView *)overlay{
     
     if (_overlay == nil) {
-        _overlay = [[IGLOverlayView alloc] initWithFrame:self.superview.bounds menu:self];
-        [self.superview insertSubview:_overlay belowSubview:self];
+        
+        if (_customOverlayView != nil) {
+            _customOverlayView.bounds = self.superview.bounds;
+            _overlay = [[IGLOverlayView alloc] initWithCustomView:_customOverlayView menu:self];
+            [self.superview insertSubview:_overlay belowSubview:self];
+        }else{
+            _overlay = [[IGLOverlayView alloc] initWithFrame:self.superview.bounds menu:self];
+            [self.superview insertSubview:_overlay belowSubview:self];
+        }
     }
     
     return _overlay;

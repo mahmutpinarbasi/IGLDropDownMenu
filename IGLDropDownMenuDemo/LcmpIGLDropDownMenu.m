@@ -7,6 +7,7 @@
 //
 
 #import "LcmpIGLDropDownMenu.h"
+#import "LcmpCustomOverlayView.h"
 
 
 
@@ -24,7 +25,8 @@ CGFloat const LcmpIpadIGLMenuButtonMargin = 8.0;
 
 - (instancetype)initWithDelegate:(id<IGLDropDownMenuDelegate>)delegate{
     
-    self = [super initWithMenuButtonCustomView:self.customBackgroundView];
+    
+    self = [super initWithMenuButtonCustomView:self.customBackgroundView overlayView:[[LcmpCustomOverlayView alloc] init]];
     
     if (self) {
         [self resetParams];
@@ -48,7 +50,7 @@ CGFloat const LcmpIpadIGLMenuButtonMargin = 8.0;
     
     if (_customBackgroundView == nil) {
         _customBackgroundView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.itemSize.width, LcmpIpadIGLMenuButtonHeight)];
-        _customBackgroundView.backgroundColor = [UIColor clearColor];
+        _customBackgroundView.backgroundColor = [UIColor redColor];
         
         
         UIView * circularView = [[UIView alloc] initWithFrame:CGRectMake(CGRectGetWidth(_customBackgroundView.frame)-LcmpIpadIGLMenuButtonWidth, 0, LcmpIpadIGLMenuButtonWidth, LcmpIpadIGLMenuButtonHeight)];

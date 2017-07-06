@@ -49,7 +49,7 @@
     [self addSubview:self.lblTitle];
     
     [self addLabelConstraints];
-    self.backgroundColor = [UIColor clearColor];
+    self.backgroundColor = [UIColor purpleColor];
     self.alpha = 1.0;
     
 }

@@ -12,7 +12,10 @@
 @class IGLDropDownMenu;
 @interface IGLOverlayView : UIView
 
+- (id)initWithCustomView:(UIView *)view menu:(IGLDropDownMenu *)menu;
 - (id)initWithFrame:(CGRect)frame menu:(IGLDropDownMenu *)menu;
+
+
 - (void)show;
 - (void)hide;
 

@@ -120,7 +120,7 @@
     
     IGLDemoCustomView *customView = [[IGLDemoCustomView alloc] init];
     
-    self.customeViewDropDownMenu = [[IGLDropDownMenu alloc] initWithMenuButtonCustomView:customView];
+    self.customeViewDropDownMenu = [[IGLDropDownMenu alloc] initWithMenuButtonCustomView:customView overlayView:nil];
     self.customeViewDropDownMenu.dropDownItems = dropdownItems;
     [self.customeViewDropDownMenu setFrame:CGRectMake(135, 140, 50, 50)];
     self.customeViewDropDownMenu.delegate = self;
@@ -250,7 +250,7 @@
         self.dropDownMenu = self.defaultDropDownMenu;
     } else {
         self.defaultDropDownMenu.hidden = YES;
-        self.dropDownMenu = self.customeViewDropDownMenu;
+        self.dropDownMenu = self.defaultDropDownMenu;
     }
     self.dropDownMenu.hidden = NO;
     [self setUpParameWithSegmentControlIndex:self.segmentControl.selectedSegmentIndex];

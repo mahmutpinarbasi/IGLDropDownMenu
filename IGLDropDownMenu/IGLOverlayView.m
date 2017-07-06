@@ -12,11 +12,25 @@
 @interface IGLOverlayView()
 
 @property (nonatomic, weak) IGLDropDownMenu * menu;
+@property (nonatomic, strong) UIView * customView;
 
 @end
 
 @implementation IGLOverlayView
 
+
+- (id)initWithCustomView:(UIView *)view menu:(IGLDropDownMenu *)menu{
+    self = [super initWithFrame:view.bounds];
+    if (self) {
+        _menu = menu;
+        _customView = view;
+        
+        [self commonInit];
+    }
+    
+    return self;
+
+}
 
 - (id)initWithFrame:(CGRect)frame menu:(IGLDropDownMenu *)menu{
     
@@ -72,7 +86,15 @@
 #pragma mark - Private
 - (void)commonInit{
     
-    self.backgroundColor = [UIColor blackColor];
+    self.clipsToBounds = YES;
+    if (self.customView) {
+        [self addSubview:self.customView];
+        self.customView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+        self.backgroundColor = [UIColor clearColor];
+    }else{
+        self.backgroundColor = [UIColor blackColor];
+    }
+    
     self.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     self.alpha = 0;
     
