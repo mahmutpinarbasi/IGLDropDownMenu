@@ -670,7 +670,7 @@ CATransform3D CATransform3DPerspect(CATransform3D t, CGPoint center, float disZ)
     if (_overlay == nil) {
         
         if (_customOverlayView != nil) {
-            _customOverlayView.bounds = CGRectMake(0, 0, CGRectGetWidth(self.superview.bounds), CGRectGetHeight(self.superview.bounds));//self.superview.bounds;
+            _customOverlayView.frame = CGRectMake(0, 0, CGRectGetWidth(self.superview.bounds), CGRectGetHeight(self.superview.bounds));//self.superview.bounds;
             _overlay = [[IGLOverlayView alloc] initWithCustomView:_customOverlayView menu:self];
             [self.superview insertSubview:_overlay belowSubview:self];
         }else{
