@@ -626,7 +626,12 @@
 
 - (void)itemClicked:(IGLDropDownItem*)sender
 {
-    if (self.isExpanding) {
+    BOOL canSelect = YES;
+    if ([self.delegate respondsToSelector:@selector(dropDownMenu:canSelectItemAtIndex:)]) {
+        canSelect = [self.delegate dropDownMenu:self canSelectItemAtIndex:sender.index];
+    }
+    
+    if (self.isExpanding && canSelect) {
         [self selectChangeToItem:sender];
     }
 }

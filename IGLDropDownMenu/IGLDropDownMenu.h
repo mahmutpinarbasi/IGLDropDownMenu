@@ -36,6 +36,7 @@ typedef NS_ENUM(NSUInteger, IGLDropDownMenuDirection) {
 @protocol IGLDropDownMenuDelegate <NSObject>
 
 @optional
+- (BOOL)dropDownMenu:(IGLDropDownMenu*)dropDownMenu canSelectItemAtIndex:(NSInteger)index;
 - (void)dropDownMenu:(IGLDropDownMenu*)dropDownMenu selectedItemAtIndex:(NSInteger)index;
 - (void)dropDownMenu:(IGLDropDownMenu *)dropDownMenu expandingChanged:(BOOL)isExpanding;
 - (void)dropDownMenu:(IGLDropDownMenu *)dropDownMenu expandingChangedWithAnimationCompledted:(BOOL)isExpanding;
